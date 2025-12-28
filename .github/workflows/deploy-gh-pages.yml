@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+# Request explicit write permissions so the action can push to gh-pages
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,5 +26,7 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Prefer a user-provided PAT stored in the repo secret GH_PAGES_TOKEN for robust push permissions
+          # Fallback to the built-in github.token when a PAT isn't provided
+          github_token: ${{ secrets.GH_PAGES_TOKEN || github.token }}
           publish_dir: ./docs
