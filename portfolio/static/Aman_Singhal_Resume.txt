@@ -1,0 +1,17 @@
+AMAN SINGHAL
+Gurugram, Haryana — +91 8006118787 — aman95singhal@gmail.com — linkedin.com/in/amansinghal95
+
+SUMMARY
+Senior Engineer with nearly 8 years of experience across software development, automation, AWS cloud engineering, and large-scale distributed systems in FinTech & HFT. Strong expertise in Python, Java, Linux, Terraform, Pandas, NumPy, OpenSearch/Elastic, and building reliable automation workflows.
+
+EXPERIENCE
+Tower Research Capital — Senior Engineer (Oct 2021 – Present)
+- Lead engineer for Post-Trade systems and Elastic/OpenSearch clusters with end-to-end ownership
+- Designed and developed automation workflows using Python, Pandas, NumPy, Bash, SQL, Linux, and Elastic DB
+
+Wipro — Blackstone CoE — Senior Project Engineer (Jun 2020 – Oct 2021)
+- Developed Python microservices for automated reconciliation pipelines
+
+... (trimmed) ...
+
+Education: B.Tech in Computer Science Engineering (Cloud Computing & Virtualization), UPES, Dehradun

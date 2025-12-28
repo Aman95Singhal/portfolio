@@ -1,0 +1,27 @@
+{% for p in projects %}
+<div class="col-md-6 mb-3">
+  <div class="card h-100 shadow-sm project-card">
+    {% if p.image %}
+      {% set ext = p.image.split('.')[-1].lower() %}
+      {% if ext == 'webp' %}
+        <picture>
+          <source type="image/webp" srcset="{{ p.image.replace('-1200.webp','-600.webp') }} 600w, {{ p.image }} 1200w, {{ p.image.replace('-1200.webp','-1800.webp') }} 1800w" sizes="(max-width: 768px) 100vw, 45vw">
+          <img src="{{ p.image }}" class="card-img-top" style="height:180px;object-fit:cover;" alt="{{ p.title }}">
+        </picture>
+      {% else %}
+        <img src="{{ p.image }}" class="card-img-top" style="height:180px;object-fit:cover;" alt="{{ p.title }}">
+      {% endif %}
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ p.title }}</h5>
+      <p class="card-text">{{ p.summary }}</p>
+      <p>
+        {% for t in p.tech %}
+          <span class="badge bg-secondary me-1">{{ t }}</span>
+        {% endfor %}
+      </p>
+      <a href="/projects/{{ p.slug }}" class="btn btn-sm btn-primary">Details</a>
+    </div>
+  </div>
+</div>
+{% endfor %}

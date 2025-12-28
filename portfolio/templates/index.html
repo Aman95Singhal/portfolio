@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row align-items-center hero">
+  <div class="col-md-8">
+    <h1 class="display-5">Aman Singhal</h1>
+    <p class="lead">{{ profile.title }} — {{ profile.summary }}</p>
+    <p>
+      <a href="/about" class="btn btn-primary">View Resume</a>
+      <a href="/projects" class="btn btn-outline-primary ms-2">View Projects</a>
+      <a href="/static/Aman_Singhal_Resume.pdf" class="btn btn-secondary ms-2" download>Download Resume (PDF)</a>
+    </p>
+    <p class="mt-3">
+      {% for group, items in (profile.skills.items()|list)[:3] %}
+        {% for t in items[:3] %}
+          <span class="badge bg-secondary me-1">{{ t }}</span>
+        {% endfor %}
+      {% endfor %}
+    </p>
+    <div class="mt-4">
+      <div class="card p-3 shadow-sm">
+        <strong>Cricket</strong> — Bowling allrounder with multiple trophies. Passionate about analytics and sports-based ML too.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 text-md-end">
+    <p><strong>Location:</strong> {{ profile.location }}</p>
+    <p><strong>Email:</strong> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+    <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">Profile</a></p>
+  </div>
+</div>
+<hr>
+<h3>Selected Projects</h3>
+<div class="row">
+  {% for p in projects[:3] %}
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 shadow-sm project-card">
+      {% if p.image %}
+      <picture>
+        <source type="image/webp" srcset="{{ p.image.replace('-1200.webp','-600.webp') }} 600w, {{ p.image }} 1200w, {{ p.image.replace('-1200.webp','-1800.webp') }} 1800w" sizes="(max-width: 768px) 100vw, 45vw">
+        <img src="{{ p.image }}" class="card-img-top" style="height:160px;object-fit:cover;" alt="{{ p.title }}">
+      </picture>
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ p.title }}</h5>
+        <p class="card-text">{{ p.summary }}</p>
+        <p>
+          {% for t in p.tech %}
+            <span class="badge bg-secondary me-1">{{ t }}</span>
+          {% endfor %}
+        </p>
+        <a href="/projects/{{ p.slug }}" class="stretched-link">Read more</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<hr>
+<h3>Photos</h3>
+<div class="row g-2">
+  {% for img in gallery_images %}
+  <div class="col-6 col-sm-4 col-md-3">
+    <div class="ratio" style="--bs-aspect-ratio:60%;">
+      <img src="{{ img }}" class="img-fluid rounded gallery-thumb" loading="lazy" data-large="{{ img }}" alt="photo">
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

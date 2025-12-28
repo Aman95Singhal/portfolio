@@ -1,0 +1,39 @@
+[
+  {
+    "title": "Transaction Master",
+    "slug": "transaction-master",
+    "summary": "End-to-end log parsing, data enrichment pipelines, REST APIs with PostgreSQL/MySQL backends, Elasticsearch aggregations and Kibana dashboards.",
+    "details": "Built reliable logging ingestion and aggregation pipelines, designed REST APIs for data access, and scaled infrastructure for production workloads.",
+    "tech": ["Python", "PostgreSQL", "Elasticsearch", "Kibana", "Docker"],
+    "image": "/static/img/transaction-master.svg",
+    "link": ""
+  },
+
+  {
+    "title": "Reconciliation Automation",
+    "slug": "reconciliation-automation",
+    "summary": "Python microservices for trade reconciliation, Kafka-based data pipelines and S3 ingestion.",
+    "details": "Designed microservices that process and reconcile high-volume financial data and integrated DataDog for real-time alerting.",
+    "tech": ["Python", "Kafka", "S3", "Terraform"],
+    "image": "/static/img/reconciliation-automation.svg",
+    "link": ""
+  },
+  {
+    "title": "ML Cricket Analysis System",
+    "slug": "ml-cricket-analysis",
+    "summary": "Machine learning ranking system for cricket player selection using Python and statistical analysis.",
+    "details": "Implemented ranking algorithms, statistical feature extraction, and model evaluation for player selection use-cases.",
+    "tech": ["Python", "Pandas", "NumPy", "Scikit-learn"],
+    "image": "/static/img/ml-cricket-analysis.svg",
+    "link": ""
+  },
+  {
+    "title": "Flight Booking Application",
+    "slug": "flight-booking-app",
+    "summary": "Cross-platform mobile app using Xamarin with .NET backend and Azure deployment.",
+    "details": "Developed client apps and integrated Azure services for cloud deployment and continuous delivery.",
+    "tech": ["Xamarin", ".NET", "Azure"],
+    "image": "/static/img/flight-booking-app.svg",
+    "link": ""
+  }
+]

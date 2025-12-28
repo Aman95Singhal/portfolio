@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>About</h2>
+    <p>{{ profile.summary }}</p>
+    <h3>Experience</h3>
+    <ul>
+      <li><strong>Tower Research Capital</strong> — Senior Engineer (Oct 2021 – Present) — Lead engineer for Post-Trade systems, Elastic/OpenSearch clusters, automation workflows.</li>
+      <li><strong>Wipro — Blackstone CoE</strong> — Senior Project Engineer (Jun 2020 – Oct 2021) — Python microservices for reconciliation and Kafka-based pipelines.</li>
+      <li><strong>Gemini Solutions</strong> — Software Engineer (Jun 2018 – May 2020) — Analytics and curve calibration systems.</li>
+      <li><strong>Xebia</strong> — Software Engineer Intern (May 2017 – Jul 2017)</li>
+    </ul>
+    <h3>Education & Certifications</h3>
+    <p>{{ profile.education.degree }} — {{ profile.education.institution }} ({{ profile.education.years }})</p>
+    <p>Certifications: {{ profile.certifications | join(', ') }}</p>
+  </div>
+  <div class="col-md-4">
+    <h4>Skills</h4>
+    {% for group, items in profile.skills.items() %}
+      <p class="mb-1"><strong>{{ group.replace('_', ' ').title() }}:</strong> {{ items | join(', ') }}</p>
+    {% endfor %}
+    <canvas id="skills-chart" width="300" height="240"></canvas>
+    <p class="mt-3"><a class="btn btn-outline-secondary" href="/static/Aman_Singhal_Resume.txt" download>Download Resume</a></p>
+  </div>
+  <script>
+    (function(){
+      try {
+        const labels = [
+          {% for group, items in profile.skills.items() %}
+            "{{ group.replace('_',' ').title() }}",
+          {% endfor %}
+        ];
+        const data = [
+          {% for group, items in profile.skills.items() %}
+            {{ items|length }},
+          {% endfor %}
+        ];
+        const ctx = document.getElementById('skills-chart');
+        if (ctx && window.Chart) {
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Skill count by category',
+                data: data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+              }]
+            },
+            options: {indexAxis: 'y', responsive: true, plugins: {legend: {display: false}}}
+          });
+        }
+      } catch (e) { console.error(e); }
+    })();
+  </script>
+</div>
+{% endblock %}
