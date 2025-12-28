@@ -55,3 +55,20 @@ Admin UI
 To test email sending locally, start the server and submit the contact form on `/contact` — messages are stored in `portfolio/data/leads.json` regardless of email delivery; email sending is attempted in background and logged to the server console.
 
 To deploy, set the environment variables on your hosting provider (Render, Railway, etc.)
+
+---
+
+## GitHub Pages static export (auto-publish)
+
+This repository includes a static export pipeline which renders the Jinja templates and produces a static site in the `docs/` folder suitable for GitHub Pages or static hosting.
+
+- Run the exporter locally: `python scripts/export_static.py` (it will write to `docs/`).
+- A GitHub Actions workflow `.github/workflows/deploy-gh-pages.yml` is included that runs the exporter and publishes the generated `docs/` to the `gh-pages` branch using `peaceiris/actions-gh-pages` on each push to `main`.
+- The exported `docs/` root contains `index.html`, `styles.css` and `script.js` so it will satisfy GitHub Pages' requirement.
+
+Important steps to complete hosting:
+1. Commit and push your changes to `main` (the workflow will run and publish `docs/` to `gh-pages`).
+2. Optionally replace the placeholder Formspree ID in `docs/contact.html` to make the contact form functional on the static site.
+3. Confirm GitHub Pages settings (Settings → Pages) if you prefer to serve from `gh-pages` branch; the action will create/update that branch automatically.
+
+If you want, I can commit and push the `docs/` folder and workflow for you and then enable Pages, or I can open a PR — which do you prefer?
