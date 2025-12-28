@@ -28,15 +28,29 @@ projects = json.loads((DATA / 'projects.json').read_text())
 def render_to(path: Path, template_name: str, context: dict):
     html = env.get_template(template_name).render(**context)
     # Basic post-processing for static site:
-    # - Replace /static/css/styles.css -> /styles.css
-    html = html.replace('/static/css/styles.css', '/styles.css')
+    # - Replace /static/css/styles.css -> styles.css (use relative paths)
+    html = html.replace('/static/css/styles.css', 'styles.css')
     # - Replace script includes (remove HTMX/Alpine/Chart.js includes since we'll include our combined script)
     html = re.sub(r'<script[^>]+htmx.org[^<]*<\/script>\s*', '', html, flags=re.I)
     html = re.sub(r'<script[^>]+alpinejs[^<]*<\/script>\s*', '', html, flags=re.I)
     html = re.sub(r'<script[^>]+chart.js[^<]*<\/script>\s*', '', html, flags=re.I)
-    # - Replace references to static JS files with /script.js
-    html = html.replace('/static/js/lightbox.js', '/script.js')
-    html = html.replace('/static/js/admin.js', '/script.js')
+    # - Replace references to static JS files with script.js (relative)
+    html = html.replace('/static/js/lightbox.js', 'script.js')
+    html = html.replace('/static/js/admin.js', 'script.js')
+    # - Make image and static URLs relative (remove leading slash for /static/...)
+    html = html.replace('src="/static/', 'src="static/')
+    html = html.replace('href="/static/', 'href="static/')
+    # - Also replace any remaining /static/... occurrences (e.g., in srcset) -> static/...
+    html = html.replace('/static/', 'static/')
+
+    # - Fix internal links so they point to the generated static pages (no leading slash)
+    html = html.replace('href="/"', 'href="index.html"')
+    html = html.replace('href="/about"', 'href="about.html"')
+    html = html.replace('href="/projects"', 'href="projects.html"')
+    html = html.replace('href="/contact"', 'href="contact.html"')
+    # - Convert project links like /projects/slug to projects/slug/ (so GitHub Pages serves the folder)
+    html = re.sub(r'href="/projects/([^"]+)"', r'href="projects/\1/"', html)
+
     # - Replace HTMX form for contact with a Formspree placeholder (so the form works as a simple POST)
     html = re.sub(r'<form[^>]+hx-post=[\"\"][^\"]+[\"\"][^>]*>', '<form method="POST" action="https://formspree.io/f/YOUR_FORM_ID">', html, flags=re.I)
     # - Remove hx- attributes left on elements (non-functional in static)
