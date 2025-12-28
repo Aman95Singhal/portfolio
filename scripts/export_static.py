@@ -62,7 +62,13 @@ def render_to(path: Path, template_name: str, context: dict):
 # Render pages
 context_common = {'profile': profile, 'projects': projects, 'year': 2025}
 # index
-render_to(DOCS / 'index.html', 'index.html', {**context_common})
+# Build gallery_images from top-level images in STATIC/img (exclude uploads folder)
+img_dir = STATIC / 'img'
+gallery_images = []
+for p in sorted(img_dir.iterdir()):
+    if p.is_file() and p.parent == img_dir and p.suffix.lower() in ('.jpg', '.jpeg', '.png', '.webp', '.svg'):
+        gallery_images.append(f'static/img/{p.name}')
+render_to(DOCS / 'index.html', 'index.html', {**context_common, 'gallery_images': gallery_images})
 # about
 render_to(DOCS / 'about.html', 'about.html', {**context_common})
 # projects list
@@ -73,7 +79,7 @@ render_to(DOCS / 'projects.html', 'projects.html', {**context_common, 'tags': ta
 for p in projects:
     slug = p.get('slug')
     out = DOCS / 'projects' / slug / 'index.html'
-    render_to(out, 'project_detail.html', {**context_common, 'project': p})
+    render_to(out, 'project_detail.html', {**context_common, 'project': p, 'is_static': True})
 
 # contact
 render_to(DOCS / 'contact.html', 'contact.html', {**context_common})

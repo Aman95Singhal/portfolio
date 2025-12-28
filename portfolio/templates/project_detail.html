@@ -12,7 +12,11 @@
     {% if project.link %}
     <p><a href="{{ project.link }}" target="_blank">Project Link</a></p>
     {% endif %}
+    {% if is_static %}
+    <a class="btn btn-outline-primary" href="../projects.html">Back to projects</a>
+    {% else %}
     <a class="btn btn-outline-primary" href="/projects">Back to projects</a>
+    {% endif %}
 
     <hr>
     <h4>Comments</h4>
